@@ -13,6 +13,12 @@ public class DollarTest {
     }
 
     @Test
+    public void testFrancMultiplication() throws Exception {
+        assertThat(new Franc(5).times(10), equalTo(new Franc(50)));
+        assertThat(new Franc(1).times(3), not(equalTo(new Franc(5))));
+    }
+
+    @Test
     public void testSideEffect() throws Exception {
         assertSideEffect(5, 5);
         assertSideEffect(1, 7);
@@ -28,5 +34,7 @@ public class DollarTest {
     public void testEquals() throws Exception {
         assertEquals(new Dollar(5), new Dollar(5));
         assertThat(new Dollar(5), not(equalTo(new Dollar(3))));
+        assertEquals(new Franc(5), new Franc(5));
+        assertNotEquals(new Franc(5), new Franc(3));
     }
 }

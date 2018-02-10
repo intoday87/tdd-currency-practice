@@ -20,11 +20,13 @@
 
 * 5CHF x 2 = 10CHF ✓
 
-* ***Dollar/Franc 중복***
+* Dollar/Franc 중복
 
-* **공용 equals**
+* 공용 equals ✓
 
 * 공용 times
+
+* **Dollar/Franc 비교**
 
 # tdd 규칙
 
