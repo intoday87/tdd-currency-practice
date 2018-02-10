@@ -24,7 +24,7 @@
 
 * ~~공용 equals~~
 
-* 공용 times
+* **공용 times**
 
 * ~~Dollar/Franc 비교~~
 
