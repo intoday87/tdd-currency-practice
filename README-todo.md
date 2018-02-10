@@ -2,31 +2,33 @@
 
 * $5 + 10CHF = $10(환율이 2:1일 경우)
 
-* $5 X 2 = $10 ✓
+* ~~$5 X 2 = $10~~
 
-* amount private으로 만들기 ✓
+* ~~amount private으로 만들기~~
 
-* dollar 부작용 ✓
+* ~~dollar 부작용~~
 
 * Money 반올림
 
 * hashCode() -> hashmap 키로 사용할 경우
 
-* equals()
+* ~~equals()~~
 
 * equal null
 
 * equal object
 
-* 5CHF x 2 = 10CHF ✓
+* ~~5CHF x 2 = 10CHF~~
 
 * Dollar/Franc 중복
 
-* 공용 equals ✓
+* ~~공용 equals~~
 
 * 공용 times
 
-* **Dollar/Franc 비교**
+* ~~Dollar/Franc 비교~~
+
+* 통화?
 
 # tdd 규칙
 

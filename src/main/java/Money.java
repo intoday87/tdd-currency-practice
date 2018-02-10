@@ -8,6 +8,11 @@ public class Money {
     @Override
     public boolean equals(Object o) {
         Money money = (Money) o;
+
+        if (!getClass().equals(money.getClass())) {
+            return false;
+        }
+
         return amount == money.getAmount();
     }
 }

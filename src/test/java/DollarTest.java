@@ -36,5 +36,6 @@ public class DollarTest {
         assertThat(new Dollar(5), not(equalTo(new Dollar(3))));
         assertEquals(new Franc(5), new Franc(5));
         assertNotEquals(new Franc(5), new Franc(3));
+        assertNotEquals(new Franc(5), new Dollar(5));
     }
 }
