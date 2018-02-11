@@ -1,41 +1,44 @@
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class DollarTest {
 
+    private static final String USD = "USD";
+    private static final String CHF = "CHF";
+
     @Test
-    public void testMultiplication() throws Exception {
-        assertThat(new Dollar(5).times(10), equalTo(new Dollar(50)));
-        assertThat(new Dollar(1).times(3), not(equalTo(new Dollar(5))));
+    public void testMultiplication() {
+        Money five = new Money(5, USD);
+        assertEquals(five.times(10), new Money(50, USD));
+        assertEquals(five.times(15), new Money(75, USD));
+        assertNotEquals(five.times(15), new Money(75, CHF));
     }
 
     @Test
-    public void testFrancMultiplication() throws Exception {
-        assertThat(new Franc(5).times(10), equalTo(new Franc(50)));
-        assertThat(new Franc(1).times(3), not(equalTo(new Franc(5))));
-    }
-
-    @Test
-    public void testSideEffect() throws Exception {
+    public void testSideEffect() {
         assertSideEffect(5, 5);
         assertSideEffect(1, 7);
     }
 
     private void assertSideEffect(int amount, int times) {
-        Dollar dollar = new Dollar(amount);
+        Money dollar = new Money(amount, USD);
         dollar.times(times);
-        assertThat(dollar, equalTo(new Dollar(amount)));
+        assertEquals(dollar, new Money(amount, USD));
     }
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(new Dollar(5), new Dollar(5));
-        assertThat(new Dollar(5), not(equalTo(new Dollar(3))));
-        assertEquals(new Franc(5), new Franc(5));
-        assertNotEquals(new Franc(5), new Franc(3));
-        assertNotEquals(new Franc(5), new Dollar(5));
+    public void testCurrency() {
+        assertEquals(USD, new Money(1, USD).getCurrency());
+        assertEquals(CHF, new Money(1, CHF).getCurrency());
+    }
+
+    @Test
+    public void testDifferentClassEquality() {
+        assertEquals(new Money(1, CHF), new Money(1, CHF));
+        assertEquals(new Money(1, USD), new Money(1, USD));
+        assertNotEquals(new Money(1, USD), new Money(1, CHF));
+        assertNotEquals(new Money(1, CHF), new Money(1, USD));
     }
 }
