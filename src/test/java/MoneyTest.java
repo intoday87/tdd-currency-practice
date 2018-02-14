@@ -3,7 +3,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class DollarTest {
+public class MoneyTest {
 
     private static final String USD = "USD";
     private static final String CHF = "CHF";
@@ -40,5 +40,14 @@ public class DollarTest {
         assertEquals(new Money(1, USD), new Money(1, USD));
         assertNotEquals(new Money(1, USD), new Money(1, CHF));
         assertNotEquals(new Money(1, CHF), new Money(1, USD));
+    }
+
+    @Test
+    public void testSimpleAddition() {
+        Money five = Money.dollar(5);
+        Expression sum = five.plus(five);
+        Bank bank = new Bank();
+        Money reduced = bank.reduce(sum, USD);
+        assertEquals(Money.dollar(10), reduced);
     }
 }

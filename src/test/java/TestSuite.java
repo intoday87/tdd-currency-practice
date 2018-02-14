@@ -3,7 +3,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        DollarTest.class
+        MoneyTest.class
 })
 public class TestSuite {
 }
