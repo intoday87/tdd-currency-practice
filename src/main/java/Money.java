@@ -39,7 +39,7 @@ public class Money implements Expression {
     }
 
     public static Money dollar(int amount) {
-        return new Money(amount, "USD");
+        return new Money(amount, Bank.USD);
     }
 
     public Expression plus(Money addend) {
@@ -47,7 +47,12 @@ public class Money implements Expression {
     }
 
     @Override
-    public Money reduce(String currency) {
-        return this;
+    public Money reduce(Bank bank, String to) {
+        int rate = bank.rate(currency, to);
+        return new Money(amount / rate, to);
+    }
+
+    public static Money franc(int amount) {
+        return new Money(amount, Bank.CHF);
     }
 }

@@ -1,19 +1,15 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class MoneyTest {
 
-    private static final String USD = "USD";
-    private static final String CHF = "CHF";
-
     @Test
     public void testMultiplication() {
-        Money five = new Money(5, USD);
-        assertEquals(five.times(10), new Money(50, USD));
-        assertEquals(five.times(15), new Money(75, USD));
-        assertNotEquals(five.times(15), new Money(75, CHF));
+        Money five = new Money(5, Bank.USD);
+        assertEquals(five.times(10), new Money(50, Bank.USD));
+        assertEquals(five.times(15), new Money(75, Bank.USD));
+        assertNotEquals(five.times(15), new Money(75, Bank.CHF));
     }
 
     @Test
@@ -23,23 +19,23 @@ public class MoneyTest {
     }
 
     private void assertSideEffect(int amount, int times) {
-        Money dollar = new Money(amount, USD);
+        Money dollar = new Money(amount, Bank.USD);
         dollar.times(times);
-        assertEquals(dollar, new Money(amount, USD));
+        assertEquals(dollar, new Money(amount, Bank.USD));
     }
 
     @Test
     public void testCurrency() {
-        assertEquals(USD, new Money(1, USD).getCurrency());
-        assertEquals(CHF, new Money(1, CHF).getCurrency());
+        assertEquals(Bank.USD, new Money(1, Bank.USD).getCurrency());
+        assertEquals(Bank.CHF, new Money(1, Bank.CHF).getCurrency());
     }
 
     @Test
     public void testDifferentClassEquality() {
-        assertEquals(new Money(1, CHF), new Money(1, CHF));
-        assertEquals(new Money(1, USD), new Money(1, USD));
-        assertNotEquals(new Money(1, USD), new Money(1, CHF));
-        assertNotEquals(new Money(1, CHF), new Money(1, USD));
+        assertEquals(new Money(1, Bank.CHF), new Money(1, Bank.CHF));
+        assertEquals(new Money(1, Bank.USD), new Money(1, Bank.USD));
+        assertNotEquals(new Money(1, Bank.USD), new Money(1, Bank.CHF));
+        assertNotEquals(new Money(1, Bank.CHF), new Money(1, Bank.USD));
     }
 
     @Test
@@ -47,7 +43,7 @@ public class MoneyTest {
         Money five = Money.dollar(5);
         Expression sum = five.plus(five);
         Bank bank = new Bank();
-        Money reduced = bank.reduce(sum, USD);
+        Money reduced = bank.reduce(sum, Bank.USD);
         assertEquals(Money.dollar(10), reduced);
     }
 
@@ -71,7 +67,28 @@ public class MoneyTest {
     @Test
     public void testReduceMoney() {
         Bank bank = new Bank();
-        Money result = bank.reduce(Money.dollar(1), USD);
+        Money result = bank.reduce(Money.dollar(1), Bank.USD);
         assertEquals(Money.dollar(1), result);
+    }
+
+    @Test
+    public void testReduceMoneyDifferentCurrency() {
+       Bank bank = new Bank();
+       bank.addRate(Bank.CHF, Bank.USD, 2);
+       Money result = bank.reduce(Money.franc(2), Bank.USD);
+       assertEquals(Money.dollar(1), result);
+    }
+
+    @Test
+    public void testArrayEquals() { // 교제에서는 왜 실패한다고 나오는지 히스토리를 모르겠다 10년전 책이라 그런가..
+        // assertEquals는 deprecated 되었다고 안내한다
+        assertArrayEquals(new Object[]{"abc", "efg"}, new Object[]{"abc", "efg"});
+        // 아래 단전은 실패한다
+//        assertArrayEquals(new Object[]{"abc", "efg"}, new Object[]{"abc", "hij"});
+    }
+
+    @Test
+    public void testIdentityRate() {
+        assertEquals(1, new Bank().rate(Bank.USD, Bank.USD));
     }
 }
