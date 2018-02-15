@@ -22,7 +22,8 @@ public class Money implements Expression {
         return amount == money.getAmount();
     }
 
-    public Money times(int multiplier) {
+    @Override
+    public Expression times(int multiplier) {
         return new Money(amount * multiplier, currency);
     }
 

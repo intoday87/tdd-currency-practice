@@ -15,4 +15,9 @@ public class Sum implements Expression {
     public Expression plus(Expression source) {
         return new Sum(new Sum(augend, addend), source);
     }
+
+    @Override
+    public Expression times(int multiplier) {
+        return new Sum(addend.times(multiplier), addend.times(multiplier));
+    }
 }

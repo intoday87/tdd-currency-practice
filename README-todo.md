@@ -8,7 +8,7 @@
 
 * ~~Sum.plus~~
 
-* Expression.times
+* ~~Expression.times~~
 
 * ~~Money에 대한 통화 변환을 수행하는 Reduce~~
 
