@@ -4,6 +4,12 @@
 
 * **$5 + $5 = $10**
 
+* $5 + $5에서 Money 반환하기
+
+* Money에 대한 통화 변환을 수행하는 Reduce
+
+* ~~Bank.reduce(Money)~~
+
 * ~~$5 X 2 = $10~~
 
 * ~~amount private으로 만들기~~
