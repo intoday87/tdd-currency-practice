@@ -40,7 +40,7 @@ public class MoneyTest {
 
     @Test
     public void testSimpleAddition() {
-        Money five = Money.dollar(5);
+        Expression five = Money.dollar(5);
         Expression sum = five.plus(five);
         Bank bank = new Bank();
         Money reduced = bank.reduce(sum, Bank.USD);
@@ -100,5 +100,16 @@ public class MoneyTest {
         bank.addRate(Bank.CHF, Bank.USD, 2);
         Money result = bank.reduce(fiveDollar.plus(tenFranc), Bank.USD);
         assertEquals(result, Money.dollar(10));
+    }
+
+    @Test
+    public void testSumPlusMoney() {
+        Expression fiveDollar = Money.dollar(5);
+        Expression tenFranc = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate(Bank.CHF, Bank.USD, 2);
+        Expression sum = new Sum(fiveDollar, tenFranc).plus(fiveDollar);
+        Money result = bank.reduce(sum, Bank.USD);
+        assertEquals(result, Money.dollar(15));
     }
 }

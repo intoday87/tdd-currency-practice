@@ -13,6 +13,6 @@ public class Sum implements Expression {
 
     @Override
     public Expression plus(Expression source) {
-        return null;
+        return new Sum(new Sum(augend, addend), source);
     }
 }
